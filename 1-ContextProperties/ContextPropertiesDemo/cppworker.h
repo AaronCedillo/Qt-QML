@@ -9,9 +9,19 @@ class cppWorker : public QObject
 public:
     explicit cppWorker(QObject *parent = nullptr);
 
+    Q_INVOKABLE void regularMethod();
+
+    Q_INVOKABLE QString regularMethodWithReturn(QString name, int age);
+
 signals:
 
 public slots:
+    void ccpSlot();
 };
+
+void cppWorker::ccpSlot()
+{
+
+}
 
 #endif // CPPWORKER_H
