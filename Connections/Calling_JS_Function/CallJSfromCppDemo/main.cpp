@@ -1,5 +1,7 @@
 #include <QGuiApplication>
+#include <QQmlContext>
 #include <QQmlApplicationEngine>
+#include <qml_jscaller.h>
 
 int main(int argc, char *argv[])
 {
@@ -7,10 +9,17 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    if(engine.rootObjects().isEmpty())
-        return -1;
+    Qml_JScaller js_Caller;
 
-    return app.exec();
+    QQmlApplicationEngine engine;
+    engine.rootContext() -> setContextProperty("QmlJScaller", &js_Caller);
+
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    if(engine.rootObjects().isEmpty()) {
+        return -1;
+    } else {
+        js_Caller.setQmlRootObject(engine.rootObjects().first());
+    }
+
+return app.exec();
 }

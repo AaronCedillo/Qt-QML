@@ -18,7 +18,7 @@ public slots:
 
 private:
     void callJSmethod(QString param);
-    QObject *qmlRootObject;
+    QObject *qmlRootObject; //This contains or JavaScript function
 };
 
 #endif // QML_JSCALLER_H

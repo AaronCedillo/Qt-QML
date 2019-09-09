@@ -20,5 +20,11 @@ void Qml_JScaller::setQmlRootObject(QObject *value)
 
 void Qml_JScaller::callJSmethod(QString param)
 {
+    QVariant returnedValue;
+    QVariant cppParameter = QVariant::fromValue(param);
 
+    QMetaObject::invokeMethod(qmlRootObject, "qmlJSfunction",
+                                                           Q_RETURN_ARG(QVariant, returnedValue),
+                                                            Q_ARG(QVariant, cppParameter));
+    qDebug() << "C++ talking, done calling QML JavaScript, the return value is:", returnedValue.toString();
 }
